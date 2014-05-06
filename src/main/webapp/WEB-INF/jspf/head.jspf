@@ -1,0 +1,24 @@
+<%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+
+
+<head>
+
+<link rel="stylesheet" type="text/css"
+	href="resources/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script>
+	$(function() {
+		$("#datepicker").datepicker({
+			showButtonPanel : true,
+			dateFormat : 'yy-mm-dd'
+		});
+	});
+</script>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/style.css" />
+</head>

@@ -1,0 +1,18 @@
+<%@ page import="com.malyshkin.domain.*"%>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+
+<div id="header" class="page-header">
+
+	<div class="row">
+		<div class="col-12 col-sm-8 col-lg-8">Spring MVC + Security
+			Project</div>
+		<div class="col-6 col-sm-4 col-lg-4">
+			<c:if test="${not empty user}">
+				<%--<c:out value="${user.firstName} ${user.lastName}" />--%>
+				<a href="j_spring_security_logout">logout </a>
+			</c:if>
+		</div>
+	</div>
+
+</div>
