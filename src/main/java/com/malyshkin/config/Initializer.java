@@ -19,6 +19,8 @@ public class Initializer implements WebApplicationInitializer {
 
         ctx.register(Config.class);
         ctx.register(SecurityConfig.class);
+        ctx.register(DataSourceConfig.class);
+        ctx.register(SpringDataConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(ctx));
 

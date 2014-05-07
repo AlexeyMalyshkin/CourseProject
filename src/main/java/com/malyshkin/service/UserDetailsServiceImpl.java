@@ -13,10 +13,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+//    @Autowired
+//    private DataSource dataSource;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // с помощью нашего сервиса UserService получаем User
         User user = userService.getUser("colibri");
+//
+//        try {
+//            dataSource.getConnection();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
+
+
+
         // указываем роли для этого пользователя
 //        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
 //        roles.add(new SimpleGrantedAuthority("USER_ADMIN"));

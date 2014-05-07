@@ -1,6 +1,6 @@
 package com.malyshkin.service;
 
-import com.malyshkin.dao.UserDao;
+import com.malyshkin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -14,11 +14,12 @@ import java.util.Arrays;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserDao userDao;
+    UserRepository userRepository;
 
     @Override
     public User getUser(String login) {
         System.out.println("1111111111");
+        Iterable<com.malyshkin.domain.User> list = userRepository.findAll();
          return new User("admin","admin",true,true,true,true, Arrays.asList(new SimpleGrantedAuthority("USER_ADMIN")));
     }
 }
