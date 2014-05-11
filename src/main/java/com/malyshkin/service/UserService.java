@@ -1,13 +1,13 @@
 package com.malyshkin.service;
 
 
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
 
 
-    User getUser(String login);
+    UserDetails getUser(String login);
 
 }
 

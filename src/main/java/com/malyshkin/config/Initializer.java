@@ -35,3 +35,4 @@ public class Initializer implements WebApplicationInitializer {
         dispatcher.addMapping("/");
     }
 }
+

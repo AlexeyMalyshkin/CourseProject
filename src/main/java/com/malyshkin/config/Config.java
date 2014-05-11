@@ -26,7 +26,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @PropertySource("classpath:test.properties")
 @ComponentScan("com.malyshkin")
 @EnableWebMvc
-//@Import({SecurityConfig.class})
 public class Config extends WebMvcConfigurerAdapter {
 
     @Autowired

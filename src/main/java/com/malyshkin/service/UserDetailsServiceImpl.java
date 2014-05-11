@@ -1,7 +1,6 @@
 package com.malyshkin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,29 +18,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // с помощью нашего сервиса UserService получаем User
-        User user = userService.getUser("colibri");
-//
-//        try {
-//            dataSource.getConnection();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
-
-
-
-        // указываем роли для этого пользователя
-//        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
-//        roles.add(new SimpleGrantedAuthority("USER_ADMIN"));
-
-        // на основании полученныйх даных формируем объект UserDetails
-        // который позволит проверить введеный пользователем логин и пароль
-        // и уже потом аутентифицировать пользователя
-
+        UserDetails user = userService.getUser("colibri");
 
         return user;
-        //if return null here registration fail ^^
-//        return null;
     }
 
 }

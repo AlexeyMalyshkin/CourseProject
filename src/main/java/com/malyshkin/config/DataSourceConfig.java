@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@EnableTransactionManagement()
+@EnableTransactionManagement
 @PropertySource("classpath:test.properties")
 public class DataSourceConfig extends WebMvcConfigurerAdapter {
 
@@ -36,7 +36,7 @@ public class DataSourceConfig extends WebMvcConfigurerAdapter {
 //            setDataSource(dataSource());
 //            setAnnotatedClasses(new Class[]{User.class, Role.class});
 //            setHibernateProperties(new Properties() {{
-////                setProperty("hibernate.hbm2ddl.auto", "create");
+//                setProperty("hibernate.hbm2ddl.auto", "create");
 //                setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 //                setProperty("hibernate.show_sql", "true");
 //            }});
