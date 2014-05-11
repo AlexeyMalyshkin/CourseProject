@@ -1,5 +1,7 @@
 package com.malyshkin.config;
 
+import com.malyshkin.entity.Role;
+import com.malyshkin.entity.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -21,10 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.print("test");
         auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(getShaPasswordEncoder());
+                .passwordEncoder(shaPasswordEncoder());
     }
 
     @Override
@@ -33,10 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable();
 
         http.authorizeRequests()
-                .antMatchers("/user/**").hasRole("USER");
+                .antMatchers("/user/**").hasRole(RoleType.USER.name());
         http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN");
-
+                .antMatchers("/admin/**").hasRole(RoleType.ADMIN.name());
 
         http.exceptionHandling().accessDeniedPage("/403");
 
@@ -50,13 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.logout()
                 .permitAll()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                .logoutUrl("/j_spring_security_logout")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
     }
 
     @Bean
-    public ShaPasswordEncoder getShaPasswordEncoder(){
+    public ShaPasswordEncoder shaPasswordEncoder() {
         return new ShaPasswordEncoder();
     }
 }

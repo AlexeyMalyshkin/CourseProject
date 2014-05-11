@@ -1,4 +1,4 @@
-package com.malyshkin.domain;
+package com.malyshkin.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

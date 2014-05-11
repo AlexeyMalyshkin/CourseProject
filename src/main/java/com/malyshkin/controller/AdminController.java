@@ -1,6 +1,6 @@
-package com.malyshkin.springproject;
+package com.malyshkin.controller;
 
-import com.malyshkin.domain.User;
+import com.malyshkin.entity.User;
 import com.malyshkin.service.RoleService;
 import com.malyshkin.service.UserService;
 import com.malyshkin.wrapper.ErrorMessage;

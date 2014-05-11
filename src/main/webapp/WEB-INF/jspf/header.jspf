@@ -1,4 +1,4 @@
-<%@ page import="com.malyshkin.domain.*"%>
+<%@ page import="com.malyshkin.entity.*"%>
 <%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
 
@@ -10,7 +10,7 @@
 		<div class="col-6 col-sm-4 col-lg-4">
 			<c:if test="${not empty user}">
 				<%--<c:out value="${user.firstName} ${user.lastName}" />--%>
-				<a href="j_spring_security_logout">logout </a>
+                <a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
 			</c:if>
 		</div>
 	</div>

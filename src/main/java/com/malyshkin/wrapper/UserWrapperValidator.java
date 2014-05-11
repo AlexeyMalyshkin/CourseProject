@@ -1,7 +1,7 @@
 package com.malyshkin.wrapper;
 
 import com.malyshkin.service.UserService;
-import com.malyshkin.springproject.AdminController;
+import com.malyshkin.controller.AdminController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

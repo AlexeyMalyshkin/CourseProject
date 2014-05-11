@@ -1,7 +1,7 @@
 package com.malyshkin.service;
 
 import com.malyshkin.dao.UserDao;
-import com.malyshkin.domain.User;
+import com.malyshkin.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -3,7 +3,7 @@ package com.malyshkin.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.malyshkin.dao.RoleDao;
-import com.malyshkin.domain.Role;
+import com.malyshkin.entity.Role;
 import org.springframework.stereotype.Component;
 
 @Component

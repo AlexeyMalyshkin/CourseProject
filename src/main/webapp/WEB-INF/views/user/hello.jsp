@@ -14,7 +14,7 @@
 				<c:out value="${user.firstName}" />
 				!
 			</h1>
-			Click <a href="j_spring_security_logout">here</a> to logout.
+			Click <a href="<c:url value="/j_spring_security_logout" />" >here</a> to logout.
 		</div>
 
 	</div>

@@ -12,35 +12,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:test.properties")
+@PropertySource("classpath:dataSource.properties")
 public class DataSourceConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private Environment env;
 
+    private static final String URL = "url";
+    private static final String DRIVER_CLASS_NAME = "driverClassName";
+    private static final String USER_NAME = "userName";
+
     @Bean
     public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(env.getProperty("url"));
-//        dataSource.setUrl("jdbc:h2:~/Course project/test;");
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUsername("sa");
-        dataSource.setPassword(StringUtils.EMPTY);
-
-        return dataSource;
+        return new DriverManagerDataSource() {{
+            setUrl(env.getProperty(URL));
+            setDriverClassName(env.getProperty(DRIVER_CLASS_NAME));
+            setUsername(env.getProperty(USER_NAME));
+            setPassword(StringUtils.EMPTY);
+        }};
     }
-
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        return new LocalSessionFactoryBean() {{
-//            setDataSource(dataSource());
-//            setAnnotatedClasses(new Class[]{User.class, Role.class});
-//            setHibernateProperties(new Properties() {{
-//                setProperty("hibernate.hbm2ddl.auto", "create");
-//                setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-//                setProperty("hibernate.show_sql", "true");
-//            }});
-//        }};
-//    }
-
 }

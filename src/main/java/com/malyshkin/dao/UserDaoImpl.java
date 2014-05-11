@@ -1,6 +1,6 @@
 package com.malyshkin.dao;
 
-import com.malyshkin.domain.User;
+import com.malyshkin.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.malyshkin.dao;
 
-import java.util.List;
+import com.malyshkin.entity.User;
 
-import com.malyshkin.domain.User;
+import java.util.List;
 
 public interface UserDao {
 

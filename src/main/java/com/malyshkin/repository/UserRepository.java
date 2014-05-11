@@ -1,6 +1,6 @@
 package com.malyshkin.repository;
 
-import com.malyshkin.domain.User;
+import com.malyshkin.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

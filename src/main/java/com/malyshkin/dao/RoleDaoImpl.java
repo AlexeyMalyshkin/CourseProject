@@ -1,6 +1,6 @@
 package com.malyshkin.dao;
 
-import com.malyshkin.domain.Role;
+import com.malyshkin.entity.Role;
 import org.springframework.stereotype.Service;
 
 @Service
