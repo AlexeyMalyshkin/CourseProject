@@ -7,22 +7,19 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROLE")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = -2888541738554144466L;
 
     @Id
     @GeneratedValue
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "NAME")
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = User.class, mappedBy = "role")

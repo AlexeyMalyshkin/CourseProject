@@ -1,5 +1,6 @@
-package com.malyshkin.service;
+package com.malyshkin.service.security;
 
+import com.malyshkin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,13 +13,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private DataSource dataSource;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // с помощью нашего сервиса UserService получаем User
-        UserDetails user = userService.getUser("colibri");
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        UserDetails user = userService.findUserDetails(login);
 
         return user;
     }

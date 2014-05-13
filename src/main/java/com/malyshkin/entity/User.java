@@ -1,52 +1,38 @@
 package com.malyshkin.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Table(name = "USER")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1480589175037914639L;
 
     @Id
     @GeneratedValue
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private long id;
 
-    @Column(name = "LOGIN")
     private String login;
 
-    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "EMAIL")
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "ROLE")
     private Role role;
 
-    @Transient
-    private String passVerify;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Category.class, mappedBy = "user")
+    private Set<Category> categories;
 
-//    @Transient
-//    private boolean conditionTrue;
-
-    public void setPassVerify(String passVerify) {
-        this.passVerify = passVerify;
-    }
-
-    public String getPassVerify() {
-        return passVerify;
-    }
 
     public User() {
     }
@@ -100,26 +86,23 @@ public class User implements Serializable {
         this.role = role;
     }
 
-//    public static int getDiffYears(Date last) {
-//        Date first = new Date();
-//        Calendar birth = Calendar.getInstance();
-//        birth.setTime(last);
-//        Calendar curr = Calendar.getInstance();
-//        curr.setTime(first);
-//        int diff = curr.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
-//        if (birth.get(Calendar.MONTH) > curr.get(Calendar.MONTH)
-//                || (birth.get(Calendar.MONTH) == curr.get(Calendar.MONTH) && birth
-//                        .get(Calendar.DATE) > curr.get(Calendar.DATE))) {
-//            diff--;
-//        }
-//        return diff;
-//    }
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
 
     @Override
     public String toString() {
-        return "\nUser [id=" + id + ", login=" + login + ", password="
-                + password + ", email=" + email
-                + ", role=" + role + "]";
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", categories=" + categories +
+                '}';
     }
-
 }

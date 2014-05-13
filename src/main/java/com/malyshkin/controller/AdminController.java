@@ -1,7 +1,6 @@
 package com.malyshkin.controller;
 
 import com.malyshkin.entity.User;
-import com.malyshkin.service.RoleService;
 import com.malyshkin.service.UserService;
 import com.malyshkin.wrapper.ErrorMessage;
 import com.malyshkin.wrapper.UserWrapper;
@@ -43,8 +42,8 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleService roleService;
+//    @Autowired
+//    private RoleService roleService;
 
     @Autowired
     private Validator userWrapperValidator;
@@ -222,15 +221,15 @@ public class AdminController {
             return new UserWrapper();
         }
         UserWrapper userWrapper = new UserWrapper();
-        userWrapper.setLogin(user.getLogin());
-        userWrapper.setPassword(user.getPassword());
-        userWrapper.setPassVerify(user.getPassVerify());
-        userWrapper.setEmail(user.getEmail());
-//        userWrapper.setFirstName(user.getFirstName());
-//        userWrapper.setLastName(user.getLastName());
-//        userWrapper.setBirthDate(user.getBirthDate().toString());
-        userWrapper.setRole(user.getRole().getName());
-//        userWrapper.setAge(user.getAge());
+//        userWrapper.setLogin(user.getLogin());
+//        userWrapper.setPassword(user.getPassword());
+//        userWrapper.setPassVerify(user.getPassVerify());
+//        userWrapper.setEmail(user.getEmail());
+////        userWrapper.setFirstName(user.getFirstName());
+////        userWrapper.setLastName(user.getLastName());
+////        userWrapper.setBirthDate(user.getBirthDate().toString());
+//        userWrapper.setRole(user.getRole().getName());
+////        userWrapper.setAge(user.getAge());
 
         return userWrapper;
     }
@@ -239,19 +238,19 @@ public class AdminController {
         User user = new User();
         user.setLogin(userWrapper.getLogin());
         user.setPassword(userWrapper.getPassword());
-        user.setPassVerify(userWrapper.getPassVerify());
+//        user.setPassVerify(userWrapper.getPassVerify());
         user.setEmail(userWrapper.getEmail());
 //        user.setFirstName(userWrapper.getFirstName());
 //        user.setLastName(userWrapper.getLastName());
 //        user.setBirthDate(Date.valueOf(userWrapper.getBirthDate()));
-
-        if (userWrapper.getRole().equals("Admin")) {
-            user.setRole(roleService.findByName("ROLE_ADMIN"));
-        } else if (userWrapper.getRole().equals("User")) {
-            user.setRole(roleService.findByName("ROLE_USER"));
-        } else {
-            user.setRole(roleService.findByName(userWrapper.getRole()));
-        }
+//
+//        if (userWrapper.getRole().equals("Admin")) {
+//            user.setRole(roleService.findByName("ROLE_ADMIN"));
+//        } else if (userWrapper.getRole().equals("User")) {
+//            user.setRole(roleService.findByName("ROLE_USER"));
+//        } else {
+//            user.setRole(roleService.findByName(userWrapper.getRole()));
+//        }
 
         return user;
     }

@@ -3,10 +3,9 @@ package com.malyshkin.config;
 import com.malyshkin.dao.RoleDaoImpl;
 import com.malyshkin.dao.UserDao;
 import com.malyshkin.dao.UserDaoImpl;
-import com.malyshkin.service.RoleService;
-import com.malyshkin.service.UserDetailsServiceImpl;
+import com.malyshkin.service.security.UserDetailsServiceImpl;
 import com.malyshkin.service.UserService;
-import com.malyshkin.service.UserServiceImpl;
+import com.malyshkin.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,10 +27,10 @@ public class CommonConfig {
         return new RoleDaoImpl();
     }
 
-    @Bean
-    public RoleService roleService(){
-        return new RoleService();
-    }
+//    @Bean
+//    public RoleService roleService(){
+//        return new RoleService();
+//    }
 
     @Bean
     public UserService userService(){
