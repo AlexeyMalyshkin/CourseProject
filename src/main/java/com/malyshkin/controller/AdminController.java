@@ -109,32 +109,32 @@ public class AdminController {
 //        return true;
 //    }
 
-    @RequestMapping(value = "/edit")
-    public String showEdit(@RequestParam String login,
-            @RequestParam String command, Model model) {
-
-        if (command.equals(COMMAND_ADD)) {
-            logger.info("showAdd");
-            model.addAttribute("userWrapper", wrap(null, command));
-            model.addAttribute("command", "add");
-            return "admin/edit";
-        }
-
-        if (command.equals(COMMAND_SIGNUP)) {
-            logger.info("showSignUp");
-            model.addAttribute("userWrapper", wrap(null, command));
-            model.addAttribute("command", "signUp");
-            return "admin/edit";
-        }
-
-        logger.info("showEdit");
-//        model.addAttribute("userWrapper",
-//                wrap(userService.findByLogin(login), command));
-        String passwordAgain = new String();
-        model.addAttribute("passwordAgain", passwordAgain);
-        model.addAttribute("command", "edit");
-        return "admin/edit";
-    }
+//    @RequestMapping(value = "/edit")
+//    public String showEdit(@RequestParam String login,
+//            @RequestParam String command, Model model) {
+//
+//        if (command.equals(COMMAND_ADD)) {
+//            logger.info("showAdd");
+//            model.addAttribute("userWrapper", wrap(null, command));
+//            model.addAttribute("command", "add");
+//            return "admin/edit";
+//        }
+//
+//        if (command.equals(COMMAND_SIGNUP)) {
+//            logger.info("showSignUp");
+//            model.addAttribute("userWrapper", wrap(null, command));
+//            model.addAttribute("command", "signUp");
+//            return "admin/edit";
+//        }
+//
+//        logger.info("showEdit");
+////        model.addAttribute("userWrapper",9
+////                wrap(userService.findByLogin(login), command));
+//        String passwordAgain = new String();
+//        model.addAttribute("passwordAgain", passwordAgain);
+//        model.addAttribute("command", "edit");
+//        return "admin/edit";
+//    }
 
     @RequestMapping(value = "/editUser")
     public String editUser(@Valid UserWrapper userWrapper,
@@ -236,7 +236,7 @@ public class AdminController {
 
     private User unwrap(UserWrapper userWrapper) {
         User user = new User();
-        user.setLogin(userWrapper.getLogin());
+//        user.setLogin(userWrapper.getLogin());
         user.setPassword(userWrapper.getPassword());
 //        user.setPassVerify(userWrapper.getPassVerify());
         user.setEmail(userWrapper.getEmail());

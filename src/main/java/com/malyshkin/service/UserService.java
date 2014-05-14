@@ -6,11 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    UserDetails findUserDetails(String login, String password);
-
-    UserDetails findUserDetails(String login);
-
-    User findUser(String login, String password);
+    public UserDetails findUserDetails(String email);
+    public User findUser(String email);
+    public void save(User user);
 
 }
 

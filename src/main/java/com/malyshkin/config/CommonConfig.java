@@ -1,11 +1,12 @@
 package com.malyshkin.config;
 
-import com.malyshkin.dao.RoleDaoImpl;
-import com.malyshkin.dao.UserDao;
-import com.malyshkin.dao.UserDaoImpl;
-import com.malyshkin.service.security.UserDetailsServiceImpl;
+import com.malyshkin.service.CategoryService;
+import com.malyshkin.service.RoleService;
 import com.malyshkin.service.UserService;
+import com.malyshkin.service.impl.CategoryServiceImpl;
+import com.malyshkin.service.impl.RoleServiceImpl;
 import com.malyshkin.service.impl.UserServiceImpl;
+import com.malyshkin.service.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,24 +19,17 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class CommonConfig {
 
     @Bean
-    public UserDao userDao() {
-        return new UserDaoImpl();
-    }
-
-    @Bean
-    public RoleDaoImpl roleDao() {
-        return new RoleDaoImpl();
-    }
-
-//    @Bean
-//    public RoleService roleService(){
-//        return new RoleService();
-//    }
-
-    @Bean
     public UserService userService(){
         return new UserServiceImpl();
     }
+
+    @Bean
+    public RoleService roleService(){
+        return new RoleServiceImpl();
+    }
+
+    @Bean
+    public CategoryService categoryService(){ return new CategoryServiceImpl();}
 
     @Bean
     public UserDetailsService userDetailsService(){

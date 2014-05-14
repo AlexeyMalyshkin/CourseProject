@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,72 +22,60 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-
+    private UserRepository userRepository;
 
     @Autowired
-    ShaPasswordEncoder shaPasswordEncoder;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private ShaPasswordEncoder shaPasswordEncoder;
+
 
     @Override
-    public UserDetails findUserDetails(String login, String password) {
-        User user = userRepository.findByLoginAndPassword(login, shaPasswordEncoder.encodePassword(password, 256));
-
-        return new org.springframework.security.core.userdetails.User(user.getLogin(),
-                user.getPassword(), new ArrayList<GrantedAuthority>(){{
-            new SimpleGrantedAuthority(user.getRole().getName());
-        }});
+    public User findUser(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public UserDetails findUserDetails(String login) {
+    public void save(User user) {
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public UserDetails findUserDetails(String email) {
         createAdminUserTemp();
 
-        User user = userRepository.findByLogin(login);
-
-//        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>(){{
-//            add(new SimpleGrantedAuthority(user.getRole().getName()));
-//        }};
+        User user = userRepository.findByEmail(email);
 
         Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority(RoleType.USER.name()));
 
-
-
-        org.springframework.security.core.userdetails.User userDetails =
-                new org.springframework.security.core.userdetails.User(
-                user.getLogin(), user.getPassword(),roles);
-
-//        return new org.springframework.security.core.userdetails.User(user.getLogin(),
-//                user.getPassword(), new ArrayList<GrantedAuthority>(){{
-//            new SimpleGrantedAuthority(user.getRole().getName());
-//        }});
-
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(
+        user.getEmail(), user.getPassword(),roles);
     }
 
-    @Override
-    public User findUser(String login, String password) {
-        createAdminUserTemp();
-
-        return userRepository.findByLoginAndPassword(login,shaPasswordEncoder.encodePassword(password, null));
-    }
 
     private void createAdminUserTemp(){
-
         Role role = new Role();
         role.setName("ADMIN");
         roleRepository.saveAndFlush(role);
 
 
+
         User userTemp = new User();
-        userTemp.setLogin("admin");
+        userTemp.setEmail("admin");
         userTemp.setPassword(shaPasswordEncoder.encodePassword("admin", null));
-        userTemp.setEmail("test");
         userTemp.setRole(role);
 
         userRepository.saveAndFlush(userTemp);
+
+
+        User userTemp2 = new User();
+        userTemp2.setEmail("admin@gmail.com");
+        userTemp2.setPassword(shaPasswordEncoder.encodePassword("admin", null));
+        userTemp2.setRole(role);
+
+        userRepository.saveAndFlush(userTemp2);
     }
 
 

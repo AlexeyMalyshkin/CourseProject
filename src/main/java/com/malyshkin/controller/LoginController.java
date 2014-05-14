@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-
-        return "test";
+        return "/login";
     }
 
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
     public String loginerror(ModelMap model) {
         model.addAttribute("error", "true");
-        return "test";
+
+        return "login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -49,7 +49,7 @@ public class LoginController {
         if(rights.contains(RoleType.ADMIN.name())){
             return "admin/adminTest";
         } else if(rights.contains(RoleType.USER.name())){
-            return "user/userTest";
+            return "redirect:showCategoriesPage";
         }
 
         else return "/loginfailed";

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -21,17 +21,15 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private long id;
 
-    private String login;
+    private String email;
 
     private String password;
-
-    private String email;
 
     @ManyToOne
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Category.class, mappedBy = "user")
-    private Set<Category> categories;
+    private List<Category> categories;
 
 
     public User() {
@@ -40,9 +38,8 @@ public class User implements Serializable {
     public User(long id, String login, String password, String email,
            Role role) {
         this.id = id;
-        this.login = login;
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.role = role;
     }
 
@@ -52,14 +49,6 @@ public class User implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -86,11 +75,11 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
@@ -98,7 +87,6 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +

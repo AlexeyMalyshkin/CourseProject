@@ -9,7 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.Set;
+import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Category implements Serializable {
@@ -21,11 +22,15 @@ public class Category implements Serializable {
 
     private String name;
 
+    private CategoryType type;
+
+    private Date date;
+
     @ManyToOne
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Transaction.class, mappedBy = "category")
-    private Set<Transaction> transactions;
+    private List<Transaction> transactions;
 
     public long getId() {
         return id;
@@ -51,11 +56,19 @@ public class Category implements Serializable {
         this.user = user;
     }
 
-    public Set<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(Set<Transaction> transactions) {
+    public CategoryType getType() {
+        return type;
+    }
+
+    public void setType(CategoryType type) {
+        this.type = type;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 

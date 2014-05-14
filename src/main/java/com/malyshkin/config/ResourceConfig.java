@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -34,4 +35,14 @@ public class ResourceConfig extends WebMvcConfigurerAdapter {
             setSuffix(env.getProperty(SUFFIX));
         }};
     }
+
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource(){
+        return new ReloadableResourceBundleMessageSource(){{
+            setBasename("WEB-INF/classes/errorMessages");
+        }};
+    }
+//    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+//    <property name="basename" value="WEB-INF/classes/messages" />
+//    </bean>
 }
