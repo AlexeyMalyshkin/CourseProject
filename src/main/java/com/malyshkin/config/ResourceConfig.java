@@ -26,6 +26,7 @@ public class ResourceConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(env.getProperty(HANDLER_TYPE)).addResourceLocations(env.getProperty(RESOURCE_LOCATIONS));
+//        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
     @Bean
@@ -42,7 +43,4 @@ public class ResourceConfig extends WebMvcConfigurerAdapter {
             setBasename("WEB-INF/classes/errorMessages");
         }};
     }
-//    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-//    <property name="basename" value="WEB-INF/classes/messages" />
-//    </bean>
 }
