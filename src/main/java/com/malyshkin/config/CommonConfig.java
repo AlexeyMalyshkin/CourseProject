@@ -2,9 +2,11 @@ package com.malyshkin.config;
 
 import com.malyshkin.service.CategoryService;
 import com.malyshkin.service.RoleService;
+import com.malyshkin.service.TransactionService;
 import com.malyshkin.service.UserService;
 import com.malyshkin.service.impl.CategoryServiceImpl;
 import com.malyshkin.service.impl.RoleServiceImpl;
+import com.malyshkin.service.impl.TransactionServiceImpl;
 import com.malyshkin.service.impl.UserServiceImpl;
 import com.malyshkin.service.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -35,4 +37,7 @@ public class CommonConfig {
     public UserDetailsService userDetailsService(){
         return new UserDetailsServiceImpl();
     }
+
+    @Bean
+    public TransactionService transactionService(){ return new TransactionServiceImpl();}
 }

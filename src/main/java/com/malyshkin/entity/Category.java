@@ -26,6 +26,8 @@ public class Category implements Serializable {
 
     private Date date;
 
+    private long sum;
+
     @ManyToOne
     private User user;
 
@@ -72,11 +74,29 @@ public class Category implements Serializable {
         this.transactions = transactions;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public long getSum() {
+        return sum;
+    }
+
+    public void setSum(long sum) {
+        this.sum = sum;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", type=" + type +
+                ", date=" + date +
                 ", user=" + user +
                 ", transactions=" + transactions +
                 '}';

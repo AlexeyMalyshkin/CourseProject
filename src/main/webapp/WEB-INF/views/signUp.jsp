@@ -24,8 +24,11 @@
 
         <div class="form-group">
             <input type="submit" value="Sign Up">
-            <input type="button" onclick="location.href='/'" value="Back">
+            </form:form>
+            <form:form action="login">
+                <button type="submit">Back</button>
+            </form:form>
         </div>
-    </form:form>
+
 </div>
 </body>

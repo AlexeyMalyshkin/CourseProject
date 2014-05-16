@@ -1,5 +1,6 @@
 package com.malyshkin.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,13 @@ public class HomeController {
 //    @Autowired
 //    private CategoryService categoryService;
 
+    @Autowired
+    private TempDbFiller tempDbFiller;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
+
+
 
 
 //        Category category = new Category();
@@ -28,6 +34,7 @@ public class HomeController {
                 .getAuthentication();
 
         if(AUTHENTICATION_ANONYMOUS_USER.equals(authentication.getName())) {
+
             return "login";
         } else {
             return "redirect: select";

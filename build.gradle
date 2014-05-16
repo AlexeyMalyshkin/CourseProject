@@ -74,6 +74,10 @@ dependencies {
     // JUnit
     compile 'junit:junit:4.11'
 
+    // Google Gson
+    compile 'com.google.code.gson:gson:2.2.4'
+
+
 
     compile 'javax.validation:validation-api:1.0.0.GA'
 }

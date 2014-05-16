@@ -2,6 +2,7 @@ package com.malyshkin.config.initializer;
 
 import com.malyshkin.config.CommonConfig;
 import com.malyshkin.config.DataSourceConfig;
+import com.malyshkin.config.EncodingFilter;
 import com.malyshkin.config.ResourceConfig;
 import com.malyshkin.config.SecurityConfig;
 import com.malyshkin.config.SpringDataConfig;
@@ -36,6 +37,9 @@ public class Initializer implements WebApplicationInitializer {
         servletContext.addFilter(SPRING_SECURITY_FILTER_CHAIN,
                 new DelegatingFilterProxy(SPRING_SECURITY_FILTER_CHAIN))
                 .addMappingForUrlPatterns(null, false, FILTER_MAPPING);
+
+        servletContext.addFilter("FormEncodingSetterFilter",
+                new EncodingFilter()).addMappingForUrlPatterns(null,false, FILTER_MAPPING);
 
         ctx.setServletContext(servletContext);
 

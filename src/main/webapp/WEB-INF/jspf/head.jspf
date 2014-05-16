@@ -7,5 +7,9 @@
     <script src="resources/js/jquery-2.1.1.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
 
+    <script src="resources/js/globalize.min.js"></script>
+    <script src="resources/js/dx.chartjs.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>

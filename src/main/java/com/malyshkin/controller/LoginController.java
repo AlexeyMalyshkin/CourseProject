@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login")
     public String login() {
         return "/login";
     }
