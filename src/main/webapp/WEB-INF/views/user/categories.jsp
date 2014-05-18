@@ -157,12 +157,12 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                         <div class="form_group">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary">
-                                    <input type="radio" name="options" id="option1"
-                                           onchange="document.getElementById('type').value='INCOME'"> Income
+                                    <input id="incomesRadio" type="radio" name="options" id="option1"
+                                           onchange="document.getElementById('type').value='INCOME'; enableSubmit();"> Income
                                 </label>
                                 <label class="btn btn-primary">
-                                    <input type="radio" name="options" id="option2"
-                                           onchange="document.getElementById('type').value='COST'"> Cost
+                                    <input id="costsRadio" type="radio" name="options" id="option2"
+                                           onchange="document.getElementById('type').value='COST'; enableSubmit();"> Cost
                                 </label>
                             </div>
                         </div>
@@ -176,7 +176,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
 
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button id="submitButton" type="submit" disabled="disabled" class="btn btn-primary">Add</button>
                     </div>
                 </form:form>
             </div>
@@ -188,67 +188,38 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
 
 
 <script>
+
+    function enableSubmit(){
+        if(categoryNameNotEmpty()) {
+            $('#submitButton').attr("disabled", false);
+        }
+    }
+
     $('#categoryName').bind('keyup blur', function () {
-        $(this).val($(this).val().replace(/[^A-Za-z]/g, ''))
+        $(this).val($(this).val().replace(/[^A-Za-z]/g, ''));
+        validateForm();
     });
 
-    var dataSource = [
-        { country: "USA", medals: 110 },
-        { country: "China", medals: 100 },
-        { country: "Russia", medals: 72 },
-        { country: "Britain", medals: 47 },
-        { country: "Australia", medals: 46 },
-        { country: "Germany", medals: 41 },
-        { country: "France", medals: 40 },
-        { country: "South Korea", medals: 31 }
-    ];
+    function radioChecked(){
+        return $('#incomesRadio').is(':checked') ||
+                $('#costsRadio').is(':checked') ;
+    }
 
-    $("#chartContainer").dxPieChart({
-        dataSource: dataSource,
-        palette: "Soft Pastel",
-        title: "Olympic Medals in 2008",
-        legend: {
-            horizontalAlignment: "right",
-            verticalAlignment: "top",
-            margin: 0
-        },
-        pointClick: function (point) {
-            point.select();
-        },
-        series: [
-            {
-                type: "doughnut",
-                argumentField: "country",
-                valueField: "medals",
-                hoverStyle: {
-                    color: "#ffd700"
-                }
+    function categoryNameNotEmpty(){
+        var categoryName =  $('#categoryName').val();
+        return !(categoryName==null || categoryName=='');
+    }
+
+    function validateForm(){
+        if(categoryNameNotEmpty()){
+            if(radioChecked()) {
+                $('#submitButton').attr("disabled", false);
             }
-        ]
-    });
+        } else{
+            $('#submitButton').attr("disabled", true);
 
-    $("#chartContainer2").dxPieChart({
-        dataSource: dataSource,
-        palette: "Soft Pastel",
-        title: "Olympic Medals in 2008",
-        legend: {
-            horizontalAlignment: "right",
-            verticalAlignment: "top",
-            margin: 0
-        },
-        pointClick: function (point) {
-            point.select();
-        },
-        series: [
-            {
-                type: "doughnut",
-                argumentField: "country",
-                valueField: "medals",
-                hoverStyle: {
-                    color: "#ffd700"
-                }
-            }
-        ]
-    });
+        }
+    }
+
 </script>
 </body>

@@ -3,6 +3,7 @@
 
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
 <jsp:useBean id="statistic" scope="request" type="java.util.List"/>
+<jsp:useBean id="commonStatistic" scope="request" type="java.util.List"/>
 
 <body>
 <div class="container-fluid">
@@ -14,7 +15,6 @@
     </form:form>
 
     <div class="row show-grid">
-
         <div class="col-xs-12 col-sm-6 col-lg-4">
             <div id="chartContainer"></div>
         </div>
@@ -41,16 +41,16 @@
 <script>
 
     result = jQuery.parseJSON('${statistic}');
-    var test = [];
+    var categories = [];
 
     for (var i = 0; i < result.length; i++) {
-        test[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
+        categories[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
     }
 
     $("#chartContainer").dxPieChart({
-        dataSource: test,
+        dataSource: categories,
         palette: "Soft Pastel",
-        title: "Costs/Incomes",
+        title: "By categories:",
         legend: {
             horizontalAlignment: "top",
             verticalAlignment: "top",
@@ -74,10 +74,17 @@
 
     // Second Chart
 
+    result = jQuery.parseJSON('${commonStatistic}');
+    var commonStatistics = [];
+
+    for (var i = 0; i < result.length; i++) {
+        commonStatistics[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
+    }
+
     $("#chartContainer2").dxPieChart({
-        dataSource: dataSource,
+        dataSource: commonStatistics,
         palette: "Soft Pastel",
-        title: "Olympic Medals in 2008",
+        title: "Total:",
         legend: {
             horizontalAlignment: "right",
             verticalAlignment: "top",
@@ -89,8 +96,8 @@
         series: [
             {
                 type: "doughnut",
-                argumentField: "country",
-                valueField: "medals",
+                argumentField: "categoryName",
+                valueField: "categorySum",
                 hoverStyle: {
                     color: "#ffd700"
                 }

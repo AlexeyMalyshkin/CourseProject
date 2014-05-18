@@ -2,6 +2,7 @@ package com.malyshkin.controller.user;
 
 import com.google.gson.JsonObject;
 import com.malyshkin.entity.Category;
+import com.malyshkin.entity.CategoryType;
 import com.malyshkin.entity.User;
 import com.malyshkin.helper.AuthenticationHelper;
 import com.malyshkin.helper.DateHelper;
@@ -40,9 +41,9 @@ public class StatisticController {
         User user = authenticationHelper.getUserFromAuthentication();
         Map<Integer, List<Category>> categoryMap = categoryService.findForCurrentYear(user);
 
-
         model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
         model.addAttribute("statistic", populateJsonStatistic(categoryMap.get(month)));
+        model.addAttribute("commonStatistic", populateCommonStatistic(categoryMap.get(month)));
         model.addAttribute("months", categoryMap.keySet());
         model.addAttribute("activeMonth", month);
 
@@ -63,5 +64,30 @@ public class StatisticController {
         return statistic;
     }
 
+    private List<JsonObject> populateCommonStatistic(List<Category> categories) {
+        List<JsonObject> statistic = new ArrayList<>();
 
+        int totalIncomes = 0;
+        int totalCosts = 0;
+        for (Category category : categories) {
+            if (CategoryType.COST.equals(category.getType())) {
+                totalCosts+=category.getSum();
+            } else if(CategoryType.INCOME.equals(category.getType())){
+                totalIncomes+=category.getSum();
+            }
+        }
+
+        JsonObject incomesJson = new JsonObject();
+        incomesJson.addProperty("name", "Incomes");
+        incomesJson.addProperty("sum", totalIncomes);
+
+        JsonObject costsJson = new JsonObject();
+        costsJson.addProperty("name", "Costs");
+        costsJson.addProperty("sum", totalCosts);
+
+        statistic.add(incomesJson);
+        statistic.add(costsJson);
+
+        return statistic;
+    }
 }
