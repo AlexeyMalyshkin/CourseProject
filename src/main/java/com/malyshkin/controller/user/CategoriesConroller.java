@@ -39,9 +39,9 @@ public class CategoriesConroller {
         User user = userService.findUser(authentication.getName());
 
         List<Category> categories = categoryService.findForCurrentMonth(user);
+
         List<Category> incomes = categories.stream().filter(c -> c.getType().equals(CategoryType.INCOME)).
                 collect(Collectors.<Category>toList());
-
         List<Category> costs = categories.stream().filter(c -> c.getType().equals(CategoryType.COST)).
                 collect(Collectors.<Category>toList());
 

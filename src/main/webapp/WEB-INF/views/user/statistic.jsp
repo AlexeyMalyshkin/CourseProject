@@ -24,15 +24,27 @@
     </div>
 </div>
 
-<script>
 
-    // Fisrt Chart !
+<%--pagination--%>
+
+<div>
+    <ul class="pagination">
+        <c:forEach items="${months}" var="month">
+            <li class="<c:if test="${month==activeMonth}">active</c:if>
+                "><a class="testt" href="<c:url value="/viewStatisticForMonth?month=${month}" />">${monthNames.get(month)}</a>
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+
+
+<script>
 
     result = jQuery.parseJSON('${statistic}');
     var test = [];
 
-    for(var i=0; i<result.length; i++){
-        test[i] = {categoryName: result[i].name + ': ' + result[i].sum  + '$', categorySum: parseInt(result[i].sum)};
+    for (var i = 0; i < result.length; i++) {
+        test[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
     }
 
     $("#chartContainer").dxPieChart({
@@ -58,8 +70,6 @@
             }
         ]
     });
-
-
 
 
     // Second Chart
