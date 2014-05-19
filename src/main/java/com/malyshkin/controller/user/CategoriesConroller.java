@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Date;
@@ -57,7 +56,7 @@ public class CategoriesConroller {
     }
 
     @RequestMapping(value = "addCategory")
-    public String addCategory( Category category, BindingResult bindingResult){
+    public String addCategory( Category category){
 
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();
@@ -69,6 +68,13 @@ public class CategoriesConroller {
         category.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
 
         categoryService.save(category);
+
+        return "redirect:showCategoriesPage";
+    }
+
+    @RequestMapping(value = "removeCategory")
+    public String removeCategory(Category category){
+        categoryService.remove(category);
 
         return "redirect:showCategoriesPage";
     }

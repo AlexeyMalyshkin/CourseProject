@@ -25,13 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public void save(Category category) {
+        categoryRepository.saveAndFlush(category);
     }
 
     @Override
-    public void save(Category category) {
-        categoryRepository.saveAndFlush(category);
+    public void remove(Category category) {
+        categoryRepository.delete(category);
     }
 
     @Override
