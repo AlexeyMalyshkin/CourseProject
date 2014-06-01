@@ -50,7 +50,7 @@ public class TempDbFiller {
         //  Incomes
         for(int i=0; i<3;i++) {
             Category category = new Category();
-            category.setName("Income" + i);
+            category.setName("Income " + i);
             category.setType(CategoryType.INCOME);
             category.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
             category.setUser(user);
@@ -66,7 +66,7 @@ public class TempDbFiller {
             Date monthAgo =  new Date(cal.getTimeInMillis());
 
             Category category = new Category();
-            category.setName("Income" + i);
+            category.setName("Income " + i);
             category.setType(CategoryType.INCOME);
             category.setDate(monthAgo);
             category.setUser(user);
@@ -81,7 +81,7 @@ public class TempDbFiller {
             Date monthAgo =  new Date(cal.getTimeInMillis());
 
             Category category = new Category();
-            category.setName("Income" + i);
+            category.setName("Income " + i);
             category.setType(CategoryType.INCOME);
             category.setDate(monthAgo);
             category.setUser(user);
@@ -93,7 +93,7 @@ public class TempDbFiller {
         // Costs
         for(int i=0; i<5;i++) {
             Category category = new Category();
-            category.setName("Cost" + i);
+            category.setName("Cost " + i);
             category.setType(CategoryType.COST);
             category.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
             category.setUser(user);

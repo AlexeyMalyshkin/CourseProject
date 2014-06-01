@@ -21,7 +21,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
 
             <div style="height: 50px;">
                 <button class="btn btn-primary" data-toggle="modal" style="width: 100%; height: 100%"
-                        onclick="$('#incomesModal-${item.id}').modal('show');">${item.name} : ${item.id}</button>
+                        onclick="$('#incomesModal-${item.id}').modal('show');">${item.name}</button>
             </div>
             </p>
 
@@ -45,7 +45,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                             </div>
                             <form:form method="POST" action="addTransaction" commandName="transaction">
                                 <div class="form_group">
-                                    <form:input path="sum" id="transactionSum" class="form_control" type="text"
+                                    <form:input path="sum" id="transactionSum"  class="form_control numeric" type="text"
                                                 placeholder="Enter sum"/>
                                     <form:hidden path="category.id" value="${item.id}"/>
                                 </div>
@@ -126,7 +126,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                             </div>
                             <form:form method="POST" action="addTransaction" commandName="transaction">
                                 <div class="form_group">
-                                    <form:input path="sum" id="transactionSum" class="form_control" type="text"
+                                    <form:input path="sum" id="transactionSum" class="form_control numeric" type="text"
                                                 placeholder="Enter sum"/>
                                     <form:hidden path="category.id" value="${item.id}"/>
                                 </div>
@@ -258,6 +258,14 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
         $(this).val($(this).val().replace(/[^A-Za-z]/g, ''));
         validateForm();
     });
+
+    $('.numeric').on('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+//    $('#transactionSum').bind('keyup blur', function () {
+//        $(this).val($(this).val().replace(/[0-9]/g, ''));
+//    });
 
     function radioChecked() {
         return $('#incomesRadio').is(':checked') ||

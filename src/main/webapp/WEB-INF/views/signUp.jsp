@@ -9,11 +9,12 @@
     <form:form method="POST" action="signUp" commandName="user">
         
         <div class="form_group">
-            <label>Email</label>
+            <label>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
             <form:input path="email" class="form_control" type="email"
                    name="password" placeholder="Enter email"/>
             <form:errors path="email" cssclass="error"/>
         </div>
+    <br/>
 
         <div class="form_group">
             <label>Password</label>
@@ -21,12 +22,14 @@
                                            name="password" placeholder="Enter password"/>
             <form:errors path="password" cssclass="error"/>
         </div>
+    <br/>
 
         <div class="form-group">
-            <input type="submit" value="Sign Up">
+            <input type="submit" class="btn btn-default" value="Sign Up">
             </form:form>
+            <br/>
             <form:form action="login">
-                <button type="submit">Back</button>
+                <button class="btn btn-default" type="submit">Back</button>
             </form:form>
         </div>
 

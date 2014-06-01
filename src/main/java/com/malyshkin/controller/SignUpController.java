@@ -47,24 +47,6 @@ public class SignUpController {
         if(bindingResult.hasErrors()){
             return "signUp";
         }
-//
-//        Role roleAdmin = new Role();
-//        roleAdmin.setName(RoleType.ADMIN.name());
-//        Role roleUser = new Role();
-//        roleUser.setName(RoleType.USER.name());
-//
-//
-//        roleService.save(roleAdmin);
-//        roleService.save(roleUser);
-//
-//        Role role = roleService.findByName(RoleType.USER.name());
-//
-//        List<User> list = role.getUsers();
-//
-//        user.setPassword(shaPasswordEncoder.encodePassword(user.getPassword(), null));
-//        user.setRole(role);
-//        userService.save(user);
-
 
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(),

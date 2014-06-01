@@ -5,8 +5,7 @@
 <div id="header" class="page-header">
 
 	<div class="row">
-		<div class="col-12 col-sm-8 col-lg-8">Spring MVC + Security
-			Project</div>
+		<div class="col-12 col-sm-8 col-lg-8">YourCash</div>
 		<div class="col-6 col-sm-4 col-lg-4">
 			<c:if test="${not empty user}">
 				<%--<c:out value="${user.firstName} ${user.lastName}" />--%>

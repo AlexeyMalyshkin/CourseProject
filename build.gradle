@@ -19,7 +19,6 @@ dependencies {
     compile 'org.springframework.security:spring-security-taglibs:3.2.2.RELEASE'
 
     compile 'org.springframework:spring-test:4.0.3.RELEASE'
-//    compile 'com.github.springtestdbunit:spring-test-dbunit:1.0.0'
 
     // Hibernate
     compile 'org.hibernate:hibernate-core:4.3.5.Final'
@@ -45,39 +44,18 @@ dependencies {
     //JSTL
     compile 'jstl:jstl:1.2'
 
-    // DB Unit
-//    compile 'org.dbunit:dbunit:2.4.3'
-
-//    // Something >_<
-//    compile 'cglib:cglib:2.2.2'
-
-//    // Jackson
-//    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.0'
-//    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
-
-    // Captcha
-    compile 'com.google.code.maven-play-plugin.org.playframework:jj-simplecaptcha:1.1'
+    // Jackson
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
     //Logging
     compile 'log4j:log4j:1.2.16'
     compile 'org.slf4j:slf4j-log4j12:1.7.7'
-
-//    // Dom4j ???
-//    compile 'dom4j:dom4j:1.6.1'
-//
-//    // Antlr ???
-//    compile 'antlr:antlr:2.7.7'
-//
-//    // Asm ???
-//    compile 'asm:asm:3.3.1'
 
     // JUnit
     compile 'junit:junit:4.11'
 
     // Google Gson
     compile 'com.google.code.gson:gson:2.2.4'
-
-
 
     compile 'javax.validation:validation-api:1.0.0.GA'
 }
