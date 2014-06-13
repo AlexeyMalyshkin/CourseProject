@@ -27,11 +27,11 @@ public class RestController {
 
     @Autowired
     private CategoryService categoryService;
-    //  http://localhost:8080/CourseProject/api/getFullInfo/admin
 
     @Autowired
     private ShaPasswordEncoder shaPasswordEncoder;
 
+    //  http://localhost:8080/CourseProject/api/getFullInfo/admin/admin
     @RequestMapping(value = "/getFullInfo/{email}/{password}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -44,18 +44,39 @@ public class RestController {
 
         user.setRole(new Role(){{setName(RoleType.USER.name());}});
 
+        Map<Integer,List<Category>> categoryMap = categoryService.findForCurrentYear(user);
+        List<Category> categories = new ArrayList<>();
+        for(Integer key : categoryMap.keySet()){
+            for(Category category : categoryMap.get(key)){
+                category.setTransactions(null);
+                category.setUser(null);
+                categories.add(category);
+            }
+        }
 
-        //ask
-        Map<Integer,List<Category>> categoryList = categoryService.findForCurrentYear(user);
-
-
-            user.setPassword(password);
-
-        user.setRole(new Role());
-        user.setCategories(new ArrayList<Category>(){{add(new Category()); add(new Category());}});
+        user.setPassword(password);
+        user.setCategories(categories);
 
         return user;
     }
 
 
+    //  http://localhost:8080/CourseProject/api/addUser/admin1/admin1
+    @RequestMapping(value = "/addUser/{email}/{password}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    User addUser(@PathVariable String email, @PathVariable String password) {
+
+        User user = userService.findUser(email);
+        User userTemp = new User();
+        if(user ==null){
+            userTemp.setRole(null);
+            userTemp.setPassword(shaPasswordEncoder.encodePassword(password,null));
+            userTemp.setEmail(email);
+
+            userService.save(userTemp);
+        }
+
+        return userTemp;
+    }
 }

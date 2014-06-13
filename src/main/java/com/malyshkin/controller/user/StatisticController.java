@@ -41,6 +41,10 @@ public class StatisticController {
         User user = authenticationHelper.getUserFromAuthentication();
         Map<Integer, List<Category>> categoryMap = categoryService.findForCurrentYear(user);
 
+        if(categoryMap.isEmpty()){
+            return "redirect:showCategoriesPage";
+        }
+
         model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
         model.addAttribute("statistic", populateJsonStatistic(categoryMap.get(month)));
         model.addAttribute("commonStatistic", populateCommonStatistic(categoryMap.get(month)));
