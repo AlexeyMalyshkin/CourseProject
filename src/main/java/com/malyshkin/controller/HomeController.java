@@ -18,7 +18,6 @@ public class HomeController {
                 .getAuthentication();
 
         if(AUTHENTICATION_ANONYMOUS_USER.equals(authentication.getName())) {
-
             return "login";
         } else {
             return "redirect: select";

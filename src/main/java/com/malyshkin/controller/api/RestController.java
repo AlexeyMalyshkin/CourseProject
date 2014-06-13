@@ -39,7 +39,7 @@ public class RestController {
 
         User user = userService.findUser(email);
         if(!user.getPassword().equals(shaPasswordEncoder.encodePassword(password,null))){
-            return null;
+            return new User();
         }
 
         user.setRole(new Role(){{setName(RoleType.USER.name());}});

@@ -48,6 +48,10 @@ public class SignUpController {
             return "signUp";
         }
 
+        String password = user.getPassword();
+        user.setPassword(shaPasswordEncoder.encodePassword(password,null));
+
+        userService.save(user);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(),
                 AuthorityUtils.createAuthorityList(RoleType.USER.name()));
