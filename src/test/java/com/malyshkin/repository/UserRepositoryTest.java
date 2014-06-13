@@ -19,7 +19,5 @@ public class UserRepositoryTest {
     @Test
     public void test() throws Exception {
 
-//        List<User> list = (List<User>) userRepository.findAll();
-
     }
 }
