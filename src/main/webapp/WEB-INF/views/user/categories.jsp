@@ -58,7 +58,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                             <button class="btn btn-primary" data-toggle="modal"
                                     data-target="#modalSure" onclick="$('#incomesSureModal${item.id}').modal('hide');
                                     $('#incomesSureModal-${item.id}').modal('show')">Remove
-                                category : ${item.id}
+                                category
                             </button>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                             <form:form action="removeCategory" method="POST" commandName="category">
                                 <form:hidden path="id" value="${item.id}"/>
                                 <button type="submit" class="btn btn-primary" data-toggle="modalSure">Remove
-                                    category : ${item.id}
+                                    category
                                 </button>
                             </form:form>
                         </div>

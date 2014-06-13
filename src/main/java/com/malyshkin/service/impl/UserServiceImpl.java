@@ -1,8 +1,11 @@
 package com.malyshkin.service.impl;
 
 import com.malyshkin.controller.TempDbFiller;
+import com.malyshkin.entity.Role;
+import com.malyshkin.entity.RoleType;
 import com.malyshkin.entity.User;
 import com.malyshkin.repository.UserRepository;
+import com.malyshkin.service.RoleService;
 import com.malyshkin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,9 +21,13 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+    private static boolean FIRST_TIME_CREATE_DB = true;
     //Temp:
     @Autowired
     private TempDbFiller tempDbFiller;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     private UserRepository userRepository;
@@ -37,9 +44,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails findUserDetails(String email) {
-        tempDbFiller.fillDbWithTempData();
+        populateTestData();
 
         User user = userRepository.findByEmail(email);
+        Role role = roleService.findByName(RoleType.USER.name());
+        user.setRole(role);
 
         Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().getName()));
@@ -47,4 +56,12 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), roles);
     }
+
+    private void populateTestData() {
+        if (FIRST_TIME_CREATE_DB) {
+            tempDbFiller.fillDbWithTempData();
+        }
+        FIRST_TIME_CREATE_DB = false;
+    }
+
 }

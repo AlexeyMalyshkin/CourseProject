@@ -1,5 +1,6 @@
 package com.malyshkin.controller;
 
+import com.malyshkin.entity.Role;
 import com.malyshkin.entity.RoleType;
 import com.malyshkin.entity.User;
 import com.malyshkin.service.RoleService;
@@ -50,6 +51,9 @@ public class SignUpController {
 
         String password = user.getPassword();
         user.setPassword(shaPasswordEncoder.encodePassword(password,null));
+
+        Role role = roleService.findByName(RoleType.USER.name());
+        user.setRole(role);
 
         userService.save(user);
 
