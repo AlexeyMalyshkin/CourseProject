@@ -42,20 +42,11 @@ public class RestController {
             return new User();
         }
 
-        user.setRole(new Role(){{setName(RoleType.USER.name());}});
-
         Map<Integer,List<Category>> categoryMap = categoryService.findForCurrentYear(user);
-        List<Category> categories = new ArrayList<>();
-        for(Integer key : categoryMap.keySet()){
-            for(Category category : categoryMap.get(key)){
-                category.setTransactions(null);
-                category.setUser(null);
-                categories.add(category);
-            }
-        }
 
+        user.setRole(new Role(){{setName(RoleType.USER.name());}});
         user.setPassword(password);
-        user.setCategories(categories);
+        user.setCategories(getAllCategories(categoryMap));
 
         return user;
     }
@@ -78,5 +69,18 @@ public class RestController {
         }
 
         return userTemp;
+    }
+
+    private List<Category> getAllCategories(Map<Integer,List<Category>> categoryMap){
+        List<Category> categories = new ArrayList<>();
+        for(Integer key : categoryMap.keySet()){
+            for(Category category : categoryMap.get(key)){
+                category.setTransactions(null);
+                category.setUser(null);
+                categories.add(category);
+            }
+        }
+
+        return categories;
     }
 }

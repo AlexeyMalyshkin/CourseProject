@@ -25,6 +25,8 @@ public class Initializer implements WebApplicationInitializer {
     private static final int LOAD_ORDER = 1;
     private static final String DISPATCHER_MAPPING = "/";
 
+    private static final String ENCODING_FILTER_NAME = "FormEncodingSetterFilter";
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx =
@@ -38,7 +40,7 @@ public class Initializer implements WebApplicationInitializer {
                 new DelegatingFilterProxy(SPRING_SECURITY_FILTER_CHAIN))
                 .addMappingForUrlPatterns(null, false, FILTER_MAPPING);
 
-        servletContext.addFilter("FormEncodingSetterFilter",
+        servletContext.addFilter(ENCODING_FILTER_NAME,
                 new EncodingFilter()).addMappingForUrlPatterns(null,false, FILTER_MAPPING);
 
         ctx.setServletContext(servletContext);

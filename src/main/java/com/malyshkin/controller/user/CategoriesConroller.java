@@ -30,20 +30,13 @@ public class CategoriesConroller {
     @RequestMapping(value = "showCategoriesPage")
     public String showCategoriesPage(Model model){
 
-
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        authentication.getName();
-
-        User user = userService.findUser(authentication.getName());
-
+        User user = getUserFromAuthentication();
         List<Category> categories = categoryService.findForCurrentMonth(user);
 
         List<Category> incomes = categories.stream().filter(c -> c.getType().equals(CategoryType.INCOME)).
                 collect(Collectors.<Category>toList());
         List<Category> costs = categories.stream().filter(c -> c.getType().equals(CategoryType.COST)).
                 collect(Collectors.<Category>toList());
-
 
         model.addAttribute("incomes", incomes);
         model.addAttribute("costs", costs);
@@ -58,11 +51,7 @@ public class CategoriesConroller {
     @RequestMapping(value = "addCategory")
     public String addCategory( Category category){
 
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        authentication.getName();
-
-        User user = userService.findUser(authentication.getName());
+        User user = getUserFromAuthentication();
 
         category.setUser(user);
         category.setDate(new Date(Calendar.getInstance().getTimeInMillis()));
@@ -77,5 +66,13 @@ public class CategoriesConroller {
         categoryService.remove(category);
 
         return "redirect:showCategoriesPage";
+    }
+
+    private User getUserFromAuthentication(){
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        authentication.getName();
+
+        return userService.findUser(authentication.getName());
     }
 }

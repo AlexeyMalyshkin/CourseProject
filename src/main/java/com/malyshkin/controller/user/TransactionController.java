@@ -30,7 +30,6 @@ public class TransactionController {
 
         transactionService.save(transaction);
 
-
         long sum = category.getSum();
         category.setSum(sum+transaction.getSum());
 
