@@ -25,12 +25,19 @@ public class User implements Serializable {
 
     private String password;
 
+    private boolean familyAdmin;
+
     @ManyToOne
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Category.class, mappedBy = "user")
     private List<Category> categories;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = FamilyInvite.class, mappedBy = "user")
+    private List<FamilyInvite> familyInvites;
+
+    @ManyToOne
+    private Family family;
 
     public User() {
     }
@@ -81,6 +88,36 @@ public class User implements Serializable {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public Family getFamily()
+    {
+        return family;
+    }
+
+    public void setFamily(Family family)
+    {
+        this.family = family;
+    }
+
+    public List<FamilyInvite> getFamilyInvites()
+    {
+        return familyInvites;
+    }
+
+    public void setFamilyInvites(List<FamilyInvite> familyInvites)
+    {
+        this.familyInvites = familyInvites;
+    }
+
+    public boolean isFamilyAdmin()
+    {
+        return familyAdmin;
+    }
+
+    public void setFamilyAdmin(boolean familyAdmin)
+    {
+        this.familyAdmin = familyAdmin;
     }
 
     @Override

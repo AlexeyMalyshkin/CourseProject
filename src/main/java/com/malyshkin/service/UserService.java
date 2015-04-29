@@ -8,6 +8,7 @@ public interface UserService {
 
     public UserDetails findUserDetails(String email);
     public User findUser(String email);
+    public User findUserById(long id);
     public void save(User user);
 
 }

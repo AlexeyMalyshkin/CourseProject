@@ -12,6 +12,11 @@
                 <a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
 			</c:if>
 		</div>
+
+		<form:form action="showFamilyPage">
+			<button type="submit">Family management</button>
+		</form:form>
+
 	</div>
 
 </div>

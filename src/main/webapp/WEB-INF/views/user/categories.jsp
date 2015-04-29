@@ -10,12 +10,34 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
 
 
 <div class="content" style="padding:0 15px;">
-<div class="row show-grid">
+
+
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <input type="button" value="1"/>
+        <input type="button" value="2"/>
+        <input type="button" value="3"/>
+    </div>
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <input type="button" value="4"/>
+        <input type="button" value="5"/>
+        <input type="button" value="6"/>
+    </div>
+    <div class="btn-group" role="group" aria-label="...">
+        <input type="button" value="7"/>
+        <input type="button" value="8"/>
+        <input type="button" value="9"/>
+    </div>
+
+
+    <div class="row show-grid">
 
     <%--Incomes--%>
 
     <div class="col-xs-6 col-sm-4 col-lg-2">
         <jsp:useBean id="incomes" scope="request" type="java.util.List"/>
+
+        <input type="button" value="testmodel" onclick="alert(findBootstrapEnvironment());"/>
+
         <c:forEach items="${incomes}" var="item">
             <p>
 
@@ -51,7 +73,7 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                                 </div>
 
                                 <br>
-
+                                    test
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form:form>
@@ -246,6 +268,27 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
         $('#myModal').modal('hide')
         $('#myModal2').modal('show')
     });
+
+    function findBootstrapEnvironment() {
+        var envs = ['xs', 'sm', 'md', 'lg'];
+
+        $el = $('<div>');
+        $el.appendTo($('body'));
+
+        for (var i = envs.length - 1; i >= 0; i--) {
+            var env = envs[i];
+
+            $el.addClass('hidden-'+env);
+            if ($el.is(':hidden')) {
+                $el.remove();
+                return env;
+            }
+        };
+    }
+
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
 
 
     function enableSubmit() {

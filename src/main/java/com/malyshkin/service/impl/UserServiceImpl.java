@@ -38,12 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(long id)
+    {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.saveAndFlush(user);
     }
 
     @Override
     public UserDetails findUserDetails(String email) {
+        // temp
         populateTestData();
 
         User user = userRepository.findByEmail(email);

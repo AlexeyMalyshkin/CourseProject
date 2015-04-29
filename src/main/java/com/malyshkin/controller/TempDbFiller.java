@@ -2,10 +2,15 @@ package com.malyshkin.controller;
 
 import com.malyshkin.entity.Category;
 import com.malyshkin.entity.CategoryType;
+import com.malyshkin.entity.Family;
+import com.malyshkin.entity.FamilyInvite;
 import com.malyshkin.entity.Role;
 import com.malyshkin.entity.RoleType;
 import com.malyshkin.entity.User;
+import com.malyshkin.repository.specification.FamilyInviteRepository;
 import com.malyshkin.service.CategoryService;
+import com.malyshkin.service.FamilyInviteService;
+import com.malyshkin.service.FamilyService;
 import com.malyshkin.service.RoleService;
 import com.malyshkin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +35,12 @@ public class TempDbFiller {
     @Autowired
     private ShaPasswordEncoder shaPasswordEncoder;
 
+    @Autowired
+    private FamilyService familyService;
+
+    @Autowired
+    private FamilyInviteService familyInviteService;
+
     public void fillDbWithTempData(){
 
         // Roles
@@ -37,13 +48,39 @@ public class TempDbFiller {
         roleUser.setName(RoleType.USER.name());
         roleService.save(roleUser);
 
+        //Families
+        Family family = new Family();
+        familyService.save(family);
 
         // Users
         User user = new User();
         user.setEmail("admin");
         user.setPassword(shaPasswordEncoder.encodePassword("admin",null));
         user.setRole(roleUser);
+        user.setFamily(family);
         userService.save(user);
+
+        User user2 = new User();
+        user2.setEmail("wife");
+        user2.setPassword(shaPasswordEncoder.encodePassword("wife",null));
+        user2.setRole(roleUser);
+        user2.setFamily(family);
+        userService.save(user2);
+
+        User user3 = new User();
+        user3.setEmail("son");
+        user3.setPassword(shaPasswordEncoder.encodePassword("son",null));
+        user3.setRole(roleUser);
+        user3.setFamily(family);
+        user3.setFamilyAdmin(true);
+        userService.save(user3);
+
+        //Family invites
+        FamilyInvite familyInvite = new FamilyInvite();
+        familyInvite.setUser(user);
+        familyInvite.setFamily(family);
+        familyInviteService.save(familyInvite);
+
 
         // Categories
 
