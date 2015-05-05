@@ -18,7 +18,10 @@ public class FamilyInvite implements Serializable
   private long id;
 
   @ManyToOne
-  private User user;
+  private User from;
+
+  @ManyToOne
+  private User to;
 
   @ManyToOne
   private Family family;
@@ -40,16 +43,6 @@ public class FamilyInvite implements Serializable
     this.id = id;
   }
 
-  public User getUser()
-  {
-    return user;
-  }
-
-  public void setUser(User user)
-  {
-    this.user = user;
-  }
-
   public Family getFamily()
   {
     return family;
@@ -68,5 +61,25 @@ public class FamilyInvite implements Serializable
   public void setAccepted(boolean accepted)
   {
     this.accepted = accepted;
+  }
+
+  public User getFrom()
+  {
+    return from;
+  }
+
+  public void setFrom(User from)
+  {
+    this.from = from;
+  }
+
+  public User getTo()
+  {
+    return to;
+  }
+
+  public void setTo(User to)
+  {
+    this.to = to;
   }
 }

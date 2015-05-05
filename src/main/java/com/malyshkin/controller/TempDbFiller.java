@@ -52,6 +52,10 @@ public class TempDbFiller {
         Family family = new Family();
         familyService.save(family);
 
+        Family family2 = new Family();
+        familyService.save(family2);
+
+
         // Users
         User user = new User();
         user.setEmail("admin");
@@ -75,11 +79,24 @@ public class TempDbFiller {
         user3.setFamilyAdmin(true);
         userService.save(user3);
 
+        User asd = new User();
+        asd.setEmail("asd");
+        asd.setPassword(shaPasswordEncoder.encodePassword("asd", null));
+        asd.setRole(roleUser);
+//        asd.setFamily(family);
+        userService.save(asd);
+
         //Family invites
         FamilyInvite familyInvite = new FamilyInvite();
-        familyInvite.setUser(user);
+        familyInvite.setTo(user);
         familyInvite.setFamily(family);
         familyInviteService.save(familyInvite);
+
+        //Family invites
+//        FamilyInvite familyInvite2 = new FamilyInvite();
+//        familyInvite2.setUser(user);
+//        familyInvite2.setFamily(family2);
+//        familyInviteService.save(familyInvite2);
 
 
         // Categories

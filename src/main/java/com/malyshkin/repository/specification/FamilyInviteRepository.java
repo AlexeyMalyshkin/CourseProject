@@ -9,7 +9,11 @@ import java.util.List;
 
 public interface FamilyInviteRepository extends JpaRepository<FamilyInvite, Long>
 {
-  public FamilyInvite findFamilyIniviteByUser(@Param("user") User user);
+  public FamilyInvite findFamilyIniviteByFrom(@Param("from") User user);
 
-  public List<FamilyInvite> findFamilyInvitesByUser(@Param("user") User user);
+  public List<FamilyInvite> findFamilyInvitesByFrom(@Param("from") User user);
+
+  public FamilyInvite findFamilyIniviteByTo(@Param("to") User user);
+
+  public List<FamilyInvite> findFamilyInvitesByTo(@Param("to") User user);
 }

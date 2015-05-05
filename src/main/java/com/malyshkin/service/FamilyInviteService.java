@@ -9,7 +9,9 @@ public interface FamilyInviteService
 {
   public FamilyInvite findFamilyInvite(User user);
 
-  public List<FamilyInvite> findFamilyInvites(User user);
+  public List<FamilyInvite> findFamilyInvitesByTo(User user);
 
   public void save(FamilyInvite familyInvite);
+
+  public FamilyInvite findFamilyInvite(long familyInviteId);
 }

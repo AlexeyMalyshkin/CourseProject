@@ -33,10 +33,13 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Category.class, mappedBy = "user")
     private List<Category> categories;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = FamilyInvite.class, mappedBy = "user")
-    private List<FamilyInvite> familyInvites;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = FamilyInvite.class, mappedBy = "to")
+    private List<FamilyInvite> familyInvitesRecieved;
 
-    @ManyToOne
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = FamilyInvite.class, mappedBy = "from")
+    private List<FamilyInvite> familyInvitesSent;
+
+    @ManyToOne(cascade =  CascadeType.ALL)
     private Family family;
 
     public User() {
@@ -48,6 +51,12 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return id == ((User)obj).getId();
     }
 
     public long getId() {
@@ -100,14 +109,24 @@ public class User implements Serializable {
         this.family = family;
     }
 
-    public List<FamilyInvite> getFamilyInvites()
+    public List<FamilyInvite> getFamilyInvitesSent()
     {
-        return familyInvites;
+        return familyInvitesSent;
     }
 
-    public void setFamilyInvites(List<FamilyInvite> familyInvites)
+    public void setFamilyInvitesSent(List<FamilyInvite> familyInvitesSent)
     {
-        this.familyInvites = familyInvites;
+        this.familyInvitesSent = familyInvitesSent;
+    }
+
+    public List<FamilyInvite> getFamilyInvitesRecieved()
+    {
+        return familyInvitesRecieved;
+    }
+
+    public void setFamilyInvitesRecieved(List<FamilyInvite> familyInvitesRecieved)
+    {
+        this.familyInvitesRecieved = familyInvitesRecieved;
     }
 
     public boolean isFamilyAdmin()

@@ -13,7 +13,7 @@
 
 
     <div class="content" style="padding:0 15px;">
-        <div>
+        <br>
             <form:form modelAttribute="familyMembers" method="POST" action="/showFamilyPage">
                 <table class="table" style="width: 40%; margin-left: 30px;">
                     <thead>
@@ -33,8 +33,8 @@
                                         <c:if test="${item.familyAdmin}">
                                             checked
                                         </c:if>
-                                        onclick="changeFamilyAdmin(${item.id})"/>
-                                        <%--onclick="changeFamilyAdmin(${item.id})"/>--%>
+                                       onclick="changeFamilyAdmin(${item.id})"/>
+                                    <%--onclick="changeFamilyAdmin(${item.id})"/>--%>
                             </td>
                         </tr>
                     </c:forEach>
@@ -42,24 +42,32 @@
                 </table>
             </form:form>
 
-            <input type="button" value="+"/>
+        <button class="btn btn-primary" data-toggle="modal"
+                onclick="$('#inviteMember').modal('show');">Invite family member
+        </button>
+        <button class="btn btn-primary" data-toggle="modal"
+                onclick="$('#leaveFamily').modal('show');">Leave Family
+        </button>
 
+
+        <br>
+            <br>
             Family invites:
 
             <table class="table" style="width: 40%; margin-left: 30px;">
                 <thead>
-                <%--<tr>--%>
-                <%--<td><b>User</b></td>--%>
-                <%--<td><b>Can see statistic</b></td>--%>
-                <%--</tr>--%>
                 </thead>
 
                 <tbody>
                 <c:forEach items="${familyInvites}" var="item">
                     <tr>
-                        <td>${item.user.email}</td>
-                        <td>${item.family.id}</td>
-                        <td><input type="button" value="Accept"/></td>
+                        <td>${item.from.email}</td>
+                        <td>${item.family.id}</td> <%--remove this--%>
+
+                        <form:form method="POST" action="acceptInvite" commandName="invite">
+                                <form:hidden path="id" value="${item.id}"/>
+                            <td><button type="submit" class="btn btn-primary">Accept</button></td>
+                        </form:form>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -72,14 +80,65 @@
 
     Family Page
 
+
+<%--Invite member modal--%>
+<div class="modal fade inviteMember" id="inviteMember" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form:form method="POST" action="inviteMember" commandName="user">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Invite family member</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form_group">
+                        <form:input path="email" id="email" class="form_control" type="text"
+                                    placeholder="enter email"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="submitButton" type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form:form>
+        </div>
+    </div>
+</div>
+
+<%--Leave family modal--%>
+<div id="leaveFamily" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Are U Sure?!</h4>
+            </div>
+            <div class="modal-body">
+                <button type="button" onclick="$('#leaveFamily').modal('show')"
+                        class="btn btn-default" data-dismiss="modal">Cancel
+                </button>
+                <form:form action="leaveFamily" method="POST">
+                    <button type="submit" class="btn btn-primary" data-toggle="modalSure">Leave</button>
+                </form:form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <script>
-        function changeFamilyAdmin(id)
-        {
+        function changeFamilyAdmin(id) {
 //            alert(a);
             $.ajax({
-                url:'changeRights',
-                data:({id: id}),
-                success: function(data){
+                url: 'changeRights',
+                data: ({id: id}),
+                success: function (data) {
                     alert(data);
                 }
             });
