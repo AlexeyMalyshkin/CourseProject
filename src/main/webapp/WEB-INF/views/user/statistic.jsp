@@ -12,10 +12,10 @@
     <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
 
     <div class="row show-grid">
-        <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-lg-12">
             <div id="chartContainer"></div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-lg-12">
             <div id="chartContainer2"></div>
         </div>
     </div>
@@ -126,4 +126,10 @@
         ]
     });
 </script>
+<%--<style type="text/css">--%>
+    <%--.dxc-title{--%>
+        <%--font-size: large;--%>
+    <%--}--%>
+
+<%--</style>--%>
 </body>

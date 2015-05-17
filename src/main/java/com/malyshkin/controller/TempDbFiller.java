@@ -65,7 +65,7 @@ public class TempDbFiller {
         userService.save(user);
 
         User user2 = new User();
-        user2.setEmail("wife");
+        user2.setEmail("wife@asd.asdasd");
         user2.setPassword(shaPasswordEncoder.encodePassword("wife",null));
         user2.setRole(roleUser);
         user2.setFamily(family);

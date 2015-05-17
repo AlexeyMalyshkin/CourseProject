@@ -65,7 +65,7 @@ public class StatisticController {
         model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
         model.addAttribute("familyMonthNames", DateHelper.getMonthsNames(familyCategoryMap.keySet()));
 
-        model.addAttribute("statistic", populateJsonStatistic(categoryMap.get(month)));
+        model.addAttribute("statistic", populateJsonStatistic(categoryMap.get(month), false));
         model.addAttribute("commonStatistic", populateCommonStatistic(categoryMap.get(month)));
         model.addAttribute("months", categoryMap.keySet());
         model.addAttribute("familyMonths", familyCategoryMap.keySet());
@@ -74,12 +74,13 @@ public class StatisticController {
         return "user/statistic";
     }
 
-    private List<JsonObject> populateJsonStatistic(List<Category> categories) {
+    private List<JsonObject> populateJsonStatistic(List<Category> categories, boolean family) {
         List<JsonObject> statistic = new ArrayList<>();
         for (Category category : categories) {
             JsonObject categoryJson = new JsonObject();
 
-            categoryJson.addProperty("name", category.getName());
+            categoryJson.addProperty("name",family?category.getUser().getEmail()+" "+
+              category.getName(): category.getName());
             categoryJson.addProperty("sum", category.getSum());
 
             statistic.add(categoryJson);
@@ -146,7 +147,7 @@ public class StatisticController {
         model.addAttribute("familyMonthNames", DateHelper.getMonthsNames(familyCategoryMap.keySet()));
 
         model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
-        model.addAttribute("statistic", populateJsonStatistic(familyCategoryMap.get(month)));
+        model.addAttribute("statistic", populateJsonStatistic(familyCategoryMap.get(month), true));
         model.addAttribute("commonStatistic", populateCommonStatistic(familyCategoryMap.get(month)));
         model.addAttribute("familyMonths", familyCategoryMap.keySet());
         model.addAttribute("months", categoryMap.keySet());
