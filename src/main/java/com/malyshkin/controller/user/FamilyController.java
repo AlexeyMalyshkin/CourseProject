@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class FamilyController
@@ -34,28 +35,37 @@ public class FamilyController
   @RequestMapping(value = "showFamilyPage")
   public String showFamilyPage(Model model){
 
-    User user = getUserFromAuthentication();
+    User currentUser = getUserFromAuthentication();
     Family family;
 
 
-    if(user.getFamily()!=null){
-      family = familyService.findFamily(user.getFamily().getId());
+    if(currentUser.getFamily()!=null){
+      family = familyService.findFamily(currentUser.getFamily().getId());
     }
     else{
       family = new Family();
-      user.setFamily(family);
-      userService.save(user);
+      currentUser.setFamily(family);
+      userService.save(currentUser);
     }
 
-    model.addAttribute("familyMembers", family.getUsers()!=null? family.getUsers(): new ArrayList<User>());
+    if(family.getUsers()!=null){
+      List<User> members = family.getUsers();
+      members.remove(currentUser);
+      model.addAttribute("familyMembers", members);
+    } else {
+      model.addAttribute("familyMembers",  new ArrayList<User>());
+    }
 
-    model.addAttribute("familyInvites", familyInviteService.findFamilyInvitesByTo(user));
+    model.addAttribute("familyInvites", familyInviteService.findFamilyInvitesByTo(currentUser));
 
     // Provide #inviteMember pop-up:
     model.addAttribute("user", new User());
 
     // Provide acceptInvite:
     model.addAttribute("invite", new FamilyInvite());
+
+    // hiding Leave family button
+    model.addAttribute("hasFamily", currentUser.getFamily()!=null);
 
     return "user/familyPage";
   }
@@ -70,7 +80,7 @@ public class FamilyController
   }
 
   @RequestMapping(value = "inviteMember")
-  public String inviteMember( User user){
+  public String inviteMember(User user){
 
     User foundUser = userService.findUser(user.getEmail());
     if(foundUser !=null){

@@ -89,6 +89,7 @@ public class TempDbFiller {
         //Family invites
         FamilyInvite familyInvite = new FamilyInvite();
         familyInvite.setTo(user);
+        familyInvite.setFrom(user2);
         familyInvite.setFamily(family);
         familyInviteService.save(familyInvite);
 

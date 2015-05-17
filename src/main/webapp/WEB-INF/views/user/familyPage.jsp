@@ -45,9 +45,12 @@
         <button class="btn btn-primary" data-toggle="modal"
                 onclick="$('#inviteMember').modal('show');">Invite family member
         </button>
-        <button class="btn btn-primary" data-toggle="modal"
-                onclick="$('#leaveFamily').modal('show');">Leave Family
-        </button>
+
+        <c:if test="hasFamily">
+            <button class="btn btn-primary" data-toggle="modal"
+                    onclick="$('#leaveFamily').modal('show');">Leave Family
+            </button>
+        </c:if>
 
 
         <br>
