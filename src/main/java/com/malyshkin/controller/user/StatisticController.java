@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,18 +38,37 @@ public class StatisticController {
         return populateStatisticForMonth(month, model);
     }
 
+    @RequestMapping(value = "viewFamilyForMonth")
+    public String viewFamilyStatistic(Model model, @RequestParam(value = "month") int month) {
+        return populateFamilyCommonStatistic(model, month);
+    }
+
     private String populateStatisticForMonth(int month, Model model) {
         User user = authenticationHelper.getUserFromAuthentication();
         Map<Integer, List<Category>> categoryMap = categoryService.findForCurrentYear(user);
+
+        Map<Integer, List<Category>> familyCategoryMap = new HashMap<>();
 
         if(categoryMap.isEmpty()){
             return "redirect:showCategoriesPage";
         }
 
+        if(user.getFamily()!=null)
+        {
+            for (User member : user.getFamily().getUsers()){
+                familyCategoryMap.putAll(categoryService.findForCurrentYear(member));
+            }
+        }
+
+        model.addAttribute("hasFamily", user.getFamily().getUsers().size()!=1);
+
         model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
+        model.addAttribute("familyMonthNames", DateHelper.getMonthsNames(familyCategoryMap.keySet()));
+
         model.addAttribute("statistic", populateJsonStatistic(categoryMap.get(month)));
         model.addAttribute("commonStatistic", populateCommonStatistic(categoryMap.get(month)));
         model.addAttribute("months", categoryMap.keySet());
+        model.addAttribute("familyMonths", familyCategoryMap.keySet());
         model.addAttribute("activeMonth", month);
 
         return "user/statistic";
@@ -93,5 +113,45 @@ public class StatisticController {
         statistic.add(costsJson);
 
         return statistic;
+    }
+
+    private String populateFamilyCommonStatistic(Model model, int month){
+        User user = authenticationHelper.getUserFromAuthentication();
+        Map<Integer, List<Category>> categoryMap = categoryService.findForCurrentYear(user);
+
+        if(categoryMap.isEmpty()){
+            return "redirect:showCategoriesPage";
+        }
+
+        Map<Integer, List<Category>> familyCategoryMap = new HashMap<>();
+
+        if(user.getFamily()!=null)
+        {
+            // bycicle
+            for (User member : user.getFamily().getUsers()){
+                Map<Integer, List<Category>> newMap = categoryService.findForCurrentYear(member);
+                for(int key : newMap.keySet()){
+                    if(familyCategoryMap.containsKey(key)){
+                        familyCategoryMap.get(key).addAll(newMap.get(key));
+                    } else{
+                        familyCategoryMap.put(key, newMap.get(key));
+                    }
+                }
+            }
+        }
+        model.addAttribute("hasFamily", user.getFamily().getUsers().size()!=1);
+
+
+
+        model.addAttribute("familyMonthNames", DateHelper.getMonthsNames(familyCategoryMap.keySet()));
+
+        model.addAttribute("monthNames", DateHelper.getMonthsNames(categoryMap.keySet()));
+        model.addAttribute("statistic", populateJsonStatistic(familyCategoryMap.get(month)));
+        model.addAttribute("commonStatistic", populateCommonStatistic(familyCategoryMap.get(month)));
+        model.addAttribute("familyMonths", familyCategoryMap.keySet());
+        model.addAttribute("months", categoryMap.keySet());
+        model.addAttribute("activeMonth", month);
+
+        return "user/statistic";
     }
 }

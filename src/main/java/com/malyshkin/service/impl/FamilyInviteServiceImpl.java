@@ -53,4 +53,10 @@ public class FamilyInviteServiceImpl implements FamilyInviteService
   {
     return familyInviteRepository.findOne(familyInviteId);
   }
+
+  @Override
+  public void delete(FamilyInvite familyInvite)
+  {
+    familyInviteRepository.delete(familyInvite.getId());
+  }
 }

@@ -1,0 +1,14 @@
+
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+            data-toggle="dropdown" aria-expanded="true">
+      Actions <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation"><a href="<c:url value="/showCategoriesPage"/>">Costs/Incomes</a></li>
+      <li role="presentation"><a href="<c:url value="/showFamilyPage"/>">Family</a></li>
+      <li role="presentation"><a href="<c:url value="/viewStatistic"/>">Statistic</a></li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation"><a href="<c:url value="/j_spring_security_logout" />">Logout</a></li>
+    </ul>
+  </div>

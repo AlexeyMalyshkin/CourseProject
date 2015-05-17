@@ -1,22 +1,9 @@
-<%@ page import="com.malyshkin.entity.*"%>
-<%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
-<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+<%@ page import="com.malyshkin.entity.*" %>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <div id="header" class="page-header">
-
 	<div class="row">
 		<div class="col-12 col-sm-8 col-lg-8">YourCash</div>
-		<div class="col-6 col-sm-4 col-lg-4">
-			<c:if test="${not empty user}">
-				<%--<c:out value="${user.firstName} ${user.lastName}" />--%>
-                <a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
-			</c:if>
-		</div>
-
-		<form:form action="showFamilyPage">
-			<button type="submit">Family management</button>
-		</form:form>
-
 	</div>
-
 </div>

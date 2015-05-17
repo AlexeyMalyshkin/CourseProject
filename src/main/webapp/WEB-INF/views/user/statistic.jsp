@@ -6,13 +6,10 @@
 <jsp:useBean id="commonStatistic" scope="request" type="java.util.List"/>
 
 <body>
-<div class="container-fluid">
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
-    Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-    <form:form action="showCategoriesPage">
-        <button type="submit">Back</button>
-    </form:form>
+<div class="container-fluid">
+    <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
 
     <div class="row show-grid">
         <div class="col-xs-12 col-sm-6 col-lg-4">
@@ -31,11 +28,29 @@
     <ul class="pagination">
         <c:forEach items="${months}" var="month">
             <li class="<c:if test="${month==activeMonth}">active</c:if>
-                "><a class="testt" href="<c:url value="/viewStatisticForMonth?month=${month}" />">${monthNames.get(month)}</a>
+                "><a class="testt"
+                     href="<c:url value="/viewStatisticForMonth?month=${month}" />">${monthNames.get(month)}</a>
             </li>
         </c:forEach>
     </ul>
 </div>
+
+<jsp:useBean id="hasFamily" scope="request" type="java.lang.Boolean"/>
+<c:if test="${hasFamily}">
+
+    Family statistic:
+
+    <div>
+        <ul class="pagination">
+            <c:forEach items="${familyMonths}" var="month">
+                <li class="<c:if test="${month==activeMonth}">active</c:if>">
+                    <a class="testt"
+                       href="<c:url value="/viewFamilyForMonth?month=${month}" />">${familyMonthNames.get(month)}</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+</c:if>
 
 
 <script>
@@ -44,7 +59,10 @@
     var categories = [];
 
     for (var i = 0; i < result.length; i++) {
-        categories[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
+        categories[i] = {
+            categoryName: result[i].name + ': ' + result[i].sum + '$',
+            categorySum: parseInt(result[i].sum)
+        };
     }
 
     $("#chartContainer").dxPieChart({
@@ -78,7 +96,10 @@
     var commonStatistics = [];
 
     for (var i = 0; i < result.length; i++) {
-        commonStatistics[i] = {categoryName: result[i].name + ': ' + result[i].sum + '$', categorySum: parseInt(result[i].sum)};
+        commonStatistics[i] = {
+            categoryName: result[i].name + ': ' + result[i].sum + '$',
+            categorySum: parseInt(result[i].sum)
+        };
     }
 
     $("#chartContainer2").dxPieChart({

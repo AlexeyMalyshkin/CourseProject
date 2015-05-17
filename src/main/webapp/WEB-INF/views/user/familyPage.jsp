@@ -7,9 +7,11 @@
 <jsp:useBean id="familyInvites" scope="request" type="java.util.List"/>
 
 <body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+
 <div class="container-fluid">
-    <%@ include file="/WEB-INF/jspf/header.jspf" %>
-    Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
+    <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
 
 
     <div class="content" style="padding:0 15px;">
@@ -46,7 +48,8 @@
                 onclick="$('#inviteMember').modal('show');">Invite family member
         </button>
 
-        <c:if test="hasFamily">
+        <jsp:useBean id="hasFamily" scope="request" type="java.lang.Boolean"/>
+        <c:if test="${hasFamily}">
             <button class="btn btn-primary" data-toggle="modal"
                     onclick="$('#leaveFamily').modal('show');">Leave Family
             </button>
@@ -71,6 +74,12 @@
                                 <form:hidden path="id" value="${item.id}"/>
                             <td><button type="submit" class="btn btn-primary">Accept</button></td>
                         </form:form>
+
+                        <form:form method="POST" action="declineInvite" commandName="invite">
+                            <form:hidden path="id" value="${item.id}"/>
+                            <td><button type="submit" class="btn btn-primary">Decline</button></td>
+                        </form:form>
+
                     </tr>
                 </c:forEach>
                 </tbody>

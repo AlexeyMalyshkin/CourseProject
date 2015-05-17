@@ -111,6 +111,14 @@ public class FamilyController
     return "redirect:showFamilyPage";
   }
 
+  @RequestMapping(value = "declineInvite")
+  public String declineInvite(FamilyInvite familyInvite){
+    FamilyInvite foundFamilyInvite = familyInviteService.findFamilyInvite(familyInvite.getId());
+    familyInviteService.delete(foundFamilyInvite);
+
+    return "redirect:showFamilyPage";
+  }
+
   @RequestMapping(value = "leaveFamily")
   public String leaveFamily(){
     User currentUser = getUserFromAuthentication();

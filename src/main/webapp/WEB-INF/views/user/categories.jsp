@@ -6,37 +6,17 @@
 <body>
 <div class="container-fluid">
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
-Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
+
 
 
 <div class="content" style="padding:0 15px;">
-
-
-    <div class="btn-group btn-group-lg" role="group" aria-label="...">
-        <input type="button" value="1"/>
-        <input type="button" value="2"/>
-        <input type="button" value="3"/>
-    </div>
-    <div class="btn-group btn-group-lg" role="group" aria-label="...">
-        <input type="button" value="4"/>
-        <input type="button" value="5"/>
-        <input type="button" value="6"/>
-    </div>
-    <div class="btn-group" role="group" aria-label="...">
-        <input type="button" value="7"/>
-        <input type="button" value="8"/>
-        <input type="button" value="9"/>
-    </div>
-
-
     <div class="row show-grid">
+        <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
 
     <%--Incomes--%>
 
     <div class="col-xs-6 col-sm-4 col-lg-2">
         <jsp:useBean id="incomes" scope="request" type="java.util.List"/>
-
-        <input type="button" value="testmodel" onclick="alert(findBootstrapEnvironment());"/>
 
         <c:forEach items="${incomes}" var="item">
             <p>
@@ -209,11 +189,6 @@ Click <a href="<c:url value="/j_spring_security_logout" />">here</a> to logout.
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
         </div>
-    </div>
-    <div class="col-xs-6 col-sm-4 col-lg-2">
-        <form:form action="viewStatistic">
-            <button class="btn btn-primary" type="submit">Statistic</button>
-        </form:form>
     </div>
 </div>
 

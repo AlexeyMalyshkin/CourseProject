@@ -14,4 +14,6 @@ public interface FamilyInviteService
   public void save(FamilyInvite familyInvite);
 
   public FamilyInvite findFamilyInvite(long familyInviteId);
+
+  public void delete(FamilyInvite familyInvite);
 }
