@@ -12,43 +12,58 @@
 
 <div class="container-fluid">
     <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
-
+    <jsp:useBean id="familyAdmin" scope="request" type="java.lang.Boolean"/>
 
     <div class="content" style="padding:0 15px;">
         <br>
-            <form:form modelAttribute="familyMembers" method="POST" action="/showFamilyPage">
-                <table class="table" style="width: 40%; margin-left: 30px;">
-                    <thead>
+        <form:form modelAttribute="familyMembers" method="POST" action="/showFamilyPage">
+            <table class="table" style="width: 40%; margin-left: 30px;">
+                <thead>
+                <tr>
+                    <td><b>User</b></td>
+                    <td><b>Can see family statistic</b></td>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:forEach items="${familyMembers}" var="item" varStatus="status">
                     <tr>
-                        <td><b>User</b></td>
-                        <td><b>Can see family statistic</b></td>
+                        <td>${item.email}</td>
+
+                        <td>
+                            <input type="checkbox" id="familyAdmin" value="${item.familyAdmin}"
+                                    <c:if test="${item.familyAdmin}">
+                                        checked
+                                    </c:if>
+                                    <c:if test="${!familyAdmin}">
+                                        disabled
+                                    </c:if>
+                                   onclick="changeFamilyAdmin(${item.id})"/>
+                        </td>
                     </tr>
-                    </thead>
-
-                    <tbody>
-                    <c:forEach items="${familyMembers}" var="item" varStatus="status">
-                        <tr>
-                            <td>${item.email}</td>
-
-                            <td>
-                                <input type="checkbox" id="familyAdmin" value="${item.familyAdmin}"
-                                        <c:if test="${item.familyAdmin}">
-                                            checked
-                                        </c:if>
-                                       onclick="changeFamilyAdmin(${item.id})"/>
-                                    <%--onclick="changeFamilyAdmin(${item.id})"/>--%>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </form:form>
-
-        <button class="btn btn-primary" data-toggle="modal"
-                onclick="$('#inviteMember').modal('show');">Invite family member
-        </button>
-
+                </c:forEach>
+                </tbody>
+            </table>
+        </form:form>
         <jsp:useBean id="hasFamily" scope="request" type="java.lang.Boolean"/>
+
+
+        <c:choose>
+            <c:when test="${hasFamily && familyAdmin}">
+                <button class="btn btn-primary" data-toggle="modal"
+                        onclick="$('#inviteMember').modal('show');">Invite family member
+                </button>
+            </c:when>
+            <c:otherwise>
+                <c:if test="${!hasFamily}">
+                    <button class="btn btn-primary" data-toggle="modal"
+                            onclick="$('#inviteMember').modal('show');">Invite family member
+                    </button>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+
+
         <c:if test="${hasFamily}">
             <button class="btn btn-primary" data-toggle="modal"
                     onclick="$('#leaveFamily').modal('show');">Leave Family
@@ -57,40 +72,45 @@
 
 
         <br>
-            <br>
-            Family invites:
+        <br>
+        Family invites:
 
-            <table class="table" style="width: 40%; margin-left: 30px;">
-                <thead>
-                </thead>
+        <table class="table" style="width: 40%; margin-left: 30px;">
+            <thead>
+            </thead>
 
-                <tbody>
-                <c:forEach items="${familyInvites}" var="item">
-                    <tr>
-                        <td>${item.from.email}</td>
-                        <td>${item.family.id}</td> <%--remove this--%>
+            <tbody>
+            <c:forEach items="${familyInvites}" var="item">
+                <tr>
+                    <td>${item.from.email}</td>
+                    <td>${item.family.id}</td>
+                        <%--remove this--%>
 
-                        <form:form method="POST" action="acceptInvite" commandName="invite">
-                                <form:hidden path="id" value="${item.id}"/>
-                            <td><button type="submit" class="btn btn-primary">Accept</button></td>
-                        </form:form>
+                    <form:form method="POST" action="acceptInvite" commandName="invite">
+                        <form:hidden path="id" value="${item.id}"/>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Accept</button>
+                        </td>
+                    </form:form>
 
-                        <form:form method="POST" action="declineInvite" commandName="invite">
-                            <form:hidden path="id" value="${item.id}"/>
-                            <td><button type="submit" class="btn btn-primary">Decline</button></td>
-                        </form:form>
+                    <form:form method="POST" action="declineInvite" commandName="invite">
+                        <form:hidden path="id" value="${item.id}"/>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Decline</button>
+                        </td>
+                    </form:form>
 
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
 
-        </div>
     </div>
+</div>
 
 
-    Family Page
+Family Page
 
 
 <%--Invite member modal--%>
@@ -132,9 +152,11 @@
                 <h4 class="modal-title">Are U Sure?!</h4>
             </div>
             <div class="modal-body">
-                <button type="button" onclick="$('#leaveFamily').modal('show')"
-                        class="btn btn-default" data-dismiss="modal">Cancel
-                </button>
+                <div style="float: right; width: 75%;">
+                    <button type="button" onclick="$('#leaveFamily').modal('show')"
+                            class="btn btn-default" data-dismiss="modal">Cancel
+                    </button>
+                </div>
                 <form:form action="leaveFamily" method="POST">
                     <button type="submit" class="btn btn-primary" data-toggle="modalSure">Leave</button>
                 </form:form>
@@ -144,23 +166,23 @@
 </div>
 
 
-    <script>
-        function changeFamilyAdmin(id) {
+<script>
+    function changeFamilyAdmin(id) {
 //            alert(a);
-            $.ajax({
-                url: 'changeRights',
-                data: ({id: id}),
-                success: function (data) {
-                    alert(data);
-                }
-            });
+        $.ajax({
+            url: 'changeRights',
+            data: ({id: id}),
+            success: function (data) {
+                alert(data);
+            }
+        });
 
 //            if(){
 //                alert("checked");
 //            } else {
 //                alert("unchecked");
 //            }
-        }
-    </script>
+    }
+</script>
 
 </body>

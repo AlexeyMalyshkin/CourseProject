@@ -27,10 +27,11 @@
         <div class="form-group">
             <input type="submit" class="btn btn-default" value="Sign Up">
             </form:form>
-            <br/>
+            <div style="float: right; width: 92%;">
             <form:form action="login">
                 <button class="btn btn-default" type="submit">Back</button>
             </form:form>
+            </div>
         </div>
 
 </div>

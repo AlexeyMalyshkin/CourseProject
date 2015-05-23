@@ -33,27 +33,37 @@ public class FamilyController
 
 
   @RequestMapping(value = "showFamilyPage")
-  public String showFamilyPage(Model model){
+  public String showFamilyPage(Model model)
+  {
 
     User currentUser = getUserFromAuthentication();
     Family family;
 
 
-    if(currentUser.getFamily()!=null){
-      family = familyService.findFamily(currentUser.getFamily().getId());
-    }
-    else{
+    if (currentUser.getFamily() != null)
+    {
+      if (currentUser.getFamily().getUsers().size() > 1)
+      {
+        family = familyService.findFamily(currentUser.getFamily().getId());
+      } else
+      {
+        family = new Family();
+      }
+    } else
+    {
       family = new Family();
       currentUser.setFamily(family);
       userService.save(currentUser);
     }
 
-    if(family.getUsers()!=null){
+    if (family.getUsers() != null)
+    {
       List<User> members = family.getUsers();
       members.remove(currentUser);
       model.addAttribute("familyMembers", members);
-    } else {
-      model.addAttribute("familyMembers",  new ArrayList<User>());
+    } else
+    {
+      model.addAttribute("familyMembers", new ArrayList<User>());
     }
 
     model.addAttribute("familyInvites", familyInviteService.findFamilyInvitesByTo(currentUser));
@@ -61,17 +71,29 @@ public class FamilyController
     // Provide #inviteMember pop-up:
     model.addAttribute("user", new User());
 
+    model.addAttribute("familyAdmin", currentUser.isFamilyAdmin());
+
     // Provide acceptInvite:
     model.addAttribute("invite", new FamilyInvite());
 
     // hiding Leave family button
-    model.addAttribute("hasFamily", currentUser.getFamily()!=null);
+    if (currentUser.getFamily().getUsers() != null)
+    {
+      model.addAttribute("hasFamily", currentUser.getFamily().getUsers().size() > 1);
+    } else
+    {
+      model.addAttribute("hasFamily", false);
+
+    }
 
     return "user/familyPage";
   }
 
   @RequestMapping(value = "/changeRights", method = RequestMethod.GET)
-  public @ResponseBody String changeRights(@RequestParam String id){
+  public
+  @ResponseBody
+  String changeRights(@RequestParam String id)
+  {
     User user = userService.findUserById(Long.parseLong(id));
     user.setFamilyAdmin(!user.isFamilyAdmin());
     userService.save(user);
@@ -80,10 +102,12 @@ public class FamilyController
   }
 
   @RequestMapping(value = "inviteMember")
-  public String inviteMember(User user){
+  public String inviteMember(User user)
+  {
 
     User foundUser = userService.findUser(user.getEmail());
-    if(foundUser !=null){
+    if (foundUser != null)
+    {
       User currentUser = getUserFromAuthentication();
 
       FamilyInvite invite = new FamilyInvite();
@@ -98,7 +122,8 @@ public class FamilyController
   }
 
   @RequestMapping(value = "acceptInvite")
-  public String acceptInvite(FamilyInvite familyInvite){
+  public String acceptInvite(FamilyInvite familyInvite)
+  {
     User currentUser = getUserFromAuthentication();
 
     FamilyInvite foundFamilyInvite = familyInviteService.findFamilyInvite(familyInvite.getId());
@@ -112,7 +137,8 @@ public class FamilyController
   }
 
   @RequestMapping(value = "declineInvite")
-  public String declineInvite(FamilyInvite familyInvite){
+  public String declineInvite(FamilyInvite familyInvite)
+  {
     FamilyInvite foundFamilyInvite = familyInviteService.findFamilyInvite(familyInvite.getId());
     familyInviteService.delete(foundFamilyInvite);
 
@@ -120,17 +146,19 @@ public class FamilyController
   }
 
   @RequestMapping(value = "leaveFamily")
-  public String leaveFamily(){
+  public String leaveFamily()
+  {
     User currentUser = getUserFromAuthentication();
     // here remove user from family if u need
     currentUser.setFamily(null);
     userService.save(currentUser);
 
-      return "redirect:showFamilyPage";
+    return "redirect:showFamilyPage";
   }
 
 
-  private User getUserFromAuthentication(){
+  private User getUserFromAuthentication()
+  {
     Authentication authentication = SecurityContextHolder.getContext()
       .getAuthentication();
     authentication.getName();

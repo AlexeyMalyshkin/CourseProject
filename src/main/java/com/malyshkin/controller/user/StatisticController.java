@@ -70,6 +70,7 @@ public class StatisticController {
         model.addAttribute("months", categoryMap.keySet());
         model.addAttribute("familyMonths", familyCategoryMap.keySet());
         model.addAttribute("activeMonth", month);
+        model.addAttribute("familyAdmin", user.isFamilyAdmin());
 
         return "user/statistic";
     }
@@ -142,7 +143,7 @@ public class StatisticController {
         }
         model.addAttribute("hasFamily", user.getFamily().getUsers().size()!=1);
 
-
+        model.addAttribute("familyAdmin", user.isFamilyAdmin());
 
         model.addAttribute("familyMonthNames", DateHelper.getMonthsNames(familyCategoryMap.keySet()));
 

@@ -8,6 +8,8 @@
 <body>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
+<jsp:useBean id="familyAdmin" scope="request" type="java.lang.Boolean"/>
+
 <div class="container-fluid">
     <%@ include file="/WEB-INF/jspf/actionbar.jspf" %>
 
@@ -37,6 +39,7 @@
 
 <jsp:useBean id="hasFamily" scope="request" type="java.lang.Boolean"/>
 <c:if test="${hasFamily}">
+ <c:if test="${familyAdmin}">
 
     Family statistic:
 
@@ -50,6 +53,7 @@
             </c:forEach>
         </ul>
     </div>
+    </c:if>
 </c:if>
 
 

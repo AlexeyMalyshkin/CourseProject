@@ -53,7 +53,7 @@
                                 </div>
 
                                 <br>
-                                    test
+
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form:form>
@@ -80,9 +80,11 @@
                             <h4 class="modal-title">Are U Sure?!</h4>
                         </div>
                         <div class="modal-body">
+                            <div style="float: right; width: 45%;">
                             <button type="button" onclick="$('#incomesModal-${item.id}').modal('show')"
                                     class="btn btn-default" data-dismiss="modal">Cancel
                             </button>
+                                </div>
                             <form:form action="removeCategory" method="POST" commandName="category">
                                 <form:hidden path="id" value="${item.id}"/>
                                 <button type="submit" class="btn btn-primary" data-toggle="modalSure">Remove
